@@ -1,0 +1,706 @@
+---
+title: "Linear Algebra and Matrix Computation"
+author: "Mohammad Wasiq"
+date: "03/02/2022"
+output: html_document
+---
+
+# Linear Algebra and Matrix Computation
+Book :-: **Basic of Algebra for Statistics with R**
+
+Teacher :-: **Prof. Ahmed Yusuf Adhami Sir**
+
+Composer :-: **Mohammad Wasiq** *(Data Science)*
+
+**Unit - I :-:** **Matrices -:** *Matrices , Types of Matricies , Rank of Matrix , Echelon Form , Reduce - Row Echelon Form , Normal Form , Characteristic Equation , Eigen Value , Eigen Vector , Cayley - Hamilton Theorem , Kronecter Product*
+
+
+# Matrix -- Theory
+**Matrix :** A matrix is a rectangular array (arrangement) of scalars, usually presented in the following form:
+$$
+A=
+ \begin{bmatrix}
+ a_{11} & a_{12} & \cdots & a_{1n}\\
+ a_{21} & a_{22} & \cdots & a_{2n}\\
+ \cdots & \cdots & a_{ij} & \cdots\\
+ a_{m1} & a_{m2} & \cdots & a_{mn}
+ \end{bmatrix}_{m \times n} 
+$$
+
+$$
+B=
+ \begin{bmatrix}
+ b_{11} & b_{12} & \cdots & b_{1n}\\
+ b_{21} & b_{22} & \cdots & b_{2n}\\
+ \cdots & \cdots & b_{ij} & \cdots\\
+ b_{m1} & b_{m2} & \cdots & b_{mn}
+ \end{bmatrix}_{m \times n} 
+$$
+
+## Types of Matrix 
+
+### Row Matrix
+A matrix with only one row is called a row matrix or row vector.
+
+$$
+ \begin{bmatrix}
+     a_{11}\\ 
+     a_{21}\\
+     \cdots\\
+     a_{m1} 
+ \end{bmatrix}_{m \times 1}
+$$
+
+### Column Matrix
+A matrix with  only one column is called a column matrix or column vector.
+
+$$
+ \begin{bmatrix} 
+ a_{11} & a_{12} &\cdots & a_{1n} 
+ \end{bmatrix}_{1 \times n} ,
+ $$
+
+### Zero Matrix / Null Matrix
+A matrix whose  elements are all zero is called a zero matrix and is usually denoted by $0$.
+
+$$
+0=
+ \begin{bmatrix}
+ 0 & 0 & \cdots & 0\\
+ 0 & 0 & \cdots & 0\\
+ \cdots & \cdots & 0 & \cdots\\
+ 0 & 0 & \cdots & 0
+ \end{bmatrix}_{m \times n} 
+$$
+
+### Square Matrix
+A matrix whose  rows and columns are same.
+
+$$
+ \begin{bmatrix}
+     a_{11} & a_{12} & a_{13}\\ 
+     a_{21} & a_{22} & a_{23}\\
+     a_{31} & a_{32} & a_{33} 
+ \end{bmatrix}_{m \times m}
+$$   
+
+### Diagonal Matrix
+Let $A = [a_{ij}]$ be an n-square mtx. The diagonal of A consists of the elements with the same subscript , that is
+<br>$a_{11} , a_{22}, \cdots , a_{ij}, \cdots ,a_{mn} \quad ; m=n$
+$$
+A  =
+ \begin{bmatrix}
+     a_{11} & & \\
+     & a_{22} &\\
+     & & a_{ij} &\\
+     & & & a_{mn}
+ \end{bmatrix}_{m \times n} ; where\quad i = j /m = n
+$$
+
+### Trace of Matrix
+The sum of all diagonal elements of a matrix A. It's denoted by **tr(A)**
+<br>$a_{11} + a_{22} + \cdots + a_{ii} + \cdots +a_{mn} \quad ; i=1 , 2..n=m$
+<br>$\sum_{i=j=1}^n a_{ij} \quad ;i = j = 1,2,..,n$
+
+Suppose $A = [a_{ij}]$ and $B = [b_{ij}]$ are n-square matrices and k is a scaler , then
+
+* **tr(A + B) = tr(A) + tr(B)**
+* **tr(kA) = ktr(A)**
+* $tr(A^T) = tr(A)$
+* **tr(AB) = tr(BA)**
+
+### Identity Matix / Unit Matrix
+A square matrix which contain unit element diagonal matrix and all non-diagonal elements are zero . 
+$$
+I=
+ \begin{bmatrix}
+ 1 & 0 & \cdots & 0\\
+ 0 & 1 & \cdots & 0\\
+ \cdots & \cdots & 1 & \cdots\\
+ 0 & 0 & \cdots & 1
+ \end{bmatrix}_{m \times n} 
+$$
+
+### Triangular Matrix
+If every element above or below the leading diagonal of a square matrix is zero , then the matrix is called a triangular matrix.
+
+#### Lower Triangular Matrix
+$$
+ \begin{bmatrix}
+     a_{11} & 0 & 0\\ 
+     a_{21} & a_{22} & 0\\
+     a_{31} & a_{32} & a_{33} 
+ \end{bmatrix}_{3\times3}
+$$  
+
+#### upper Triangular Matrix
+
+$$
+ \begin{bmatrix}
+     a_{11} & a_{12} & a_{13}\\ 
+     0 & a_{22} & a_{23}\\
+     0 & 0 & a_{33} 
+ \end{bmatrix}_{3\times3}
+$$  
+
+### Symmetric Matrix
+A square matrix is called symmetric , if for all values of *i* and *j* 
+<br>$a_{ij} = a_{ji} \Rightarrow A^T = A$
+
+### Skew Symmetric Matrix
+A square matrix is called symmetric , if for all values of *i* and *j* 
+<br>$a_{ij} = -a_{ji} \Rightarrow A^T = -A$
+
+### Orthogonal Matrix
+A aquare matrix **A** is called orthogonal matrix , if 
+$$AA^T = I$$
+
+### Conjugate of a Matrix 
+Let 
+$$
+A = 
+ \begin{bmatrix}
+     -1+i & -2-3i & -4\\ 
+     -7+2i & -i & -3-2i
+ \end{bmatrix}_{2\times3}
+$$ 
+
+then Conjugate of Matrix A 
+$$
+\bar{A} = 
+ \begin{bmatrix}
+     -1+i & -2+3i & -4\\ 
+     -7-2i & -i & -3+2i
+ \end{bmatrix}_{2\times3}
+$$ 
+
+### Matrix $A^{\theta}$
+Transpose of the Conjugate Matrix *A* is $A^{\theta}$ .
+$$A \rightarrow \bar{A} \rightarrow (\bar{A})^T = A^{\theta}$$
+
+### Unitary Matrix
+A square matrix A is said to be unitary if $A^{\theta}A = I$
+$$
+\bar{A} = 
+ \begin{bmatrix}
+     \frac{1+i}{2} & \frac{-1+i}{2}\\ 
+     \frac{1+i}{2} & \frac{1-i}{2}
+ \end{bmatrix}_{2\times2}
+$$ 
+
+### Hermitian Matrix
+A Square matrix $A=a_{ij}$ os said to be Hermitian matrix if every $i-j^{th}$ element of A is equal to conjugate complex of $j-i^{th}$ element of A or in other words $a_{ij} = - a_{ji}$
+<br> The necessary condition and sufficient condition for the matrix A to be Hermitian is that $A = A^{\theta}$
+
+### Skew Hermitian Matrix
+$A^{\theta} = -A$
+<br>$\Rightarrow (\bar{A})^T = -A$
+
+### Idempotent Matrix
+$A^2 = A$
+
+### Involutory Matrix 
+$A^2 = I$
+
+### Nilpotent Matrix 
+$A^k = 0$
+
+### Periodic Matrix
+$A^{k+1} = A$
+
+### Normal Matrix
+A real matrix is normal if it commutes with its transpose $A^T$ , that is, $AA^T = A^TA$
+<br>All *symmetric, skew-symmetric* and *orthogonal* matrices are normal matrices.
+$$
+ \begin{bmatrix}
+     6 & -3\\ 
+     3 & 6 
+ \end{bmatrix}
+$$ 
+
+## Algebra of Matrix 
+### Addition of Matrix
+Consider matrices A , B , C (with same size) and any scalars k and k' , then ,
+
+* **(A+B) + C = A + (B+C)**
+* **A + 0 = 0 + A = 0**
+* **A + (-A) = (-A) + A = 0**
+* **A + B = B = A**
+* **k(A + B) = kA + kB**
+* **(k + k')A = kA + k'A**
+* **(kk')A = k(k'A) = k'(kA)**
+* **1.A = A**
+
+### Multiplication of Matrix
+* **(AB)C = A(BC)** {Associative Law}
+* **A(B + C) = AB + AC** {Left Distribution}
+* **(B + C)A = BA + CA** {Right Distribution}
+* **k(AB) = (kA)B = A(kB)**
+* $AB \neq BA$
+* **0.A = 0**
+
+## Transpose of a Matrix
+The transpose of a Matrix A is the matrix obtained by writing the columns of A in order as row.
+* **Properties**
+* $(A+B)^T = A^T + B^T$
+* $(A^T)^T = A$
+* $(kA)^T = kA^T$
+* $(AB)^T = B^TA^T$
+
+## Rank of a Matrix
+Let A be any $m\times n$ matrix, It has square sub-matrices of different orders. The determinent of these square sub-matrices are called minors of A.
+
+A mtx. A is said to be of rank **r** if ,
+
+* It has atleast one non-zero minor of order **r**.
+
+* All the minors of order or higher than are zero.
+
+* It's denoted by $\rho(A)$ or $r(A)$ .
+
+**Properties**
+
+* If is a null matrix, then $\rho(A) = 0$ .
+
+* If A is not a null matrix, then $\rho(A) \geq1$
+
+* If A is an $m\times n$ matrix, then $\rho(A) \leq min(m,n)$ .
+
+* If A is a non-singular matrix, then $\rho(A) = n$ .
+
+* Rank of $I_n$ is $n$ .
+
+* $\rho(A) = \rho(A^T)$ .
+
+## Echelon Form Matrix
+A matrix is in echelon form, if it satisfies the following conditions:
+
+* The first nonzero element in each row, called the leading element, is always  strictly to the right of the leading element of the row above it.
+
+* Rows with all zero elements, if any are below the rows having a nonzero element.
+
+## Reduced Row Echelon Form Matrix
+A matrix is in echelon form, if it satisfies the following conditions:
+
+* The first nonzero element in each row, called the leading element, is always  strictly to the right of the leading element of the row above it.
+
+* Rows with all zero elements, if any are below the rows having a nonzero element
+
+* The leading element in each nonzero row should be *1*.
+
+* Each leading is the only nonzero element in its column.
+
+### Pivot Position
+A position of a leading element in an echelon form of a matrix is called pivot position.
+
+### Pivot Column
+A column that contains a pivot position is called a pivot column.
+
+## Rank of a Matrix by Echelon Form
+Once a matrix is transformed into an echelon form by using the *elementary row* operations, rank of the matrix is equal to the number of nonzero rows in its echelon  form matrix. 
+ 
+### Rank of a Matrix by Normal Form method
+In Ais an $m\times n$ matrix and by a series of elementary (row or column or both) transformations, it can be put into one of the following forms (called normal or canonical forms):
+$$
+ \begin{bmatrix}
+     I_r & 0\\ 
+     0 & 0 
+ \end{bmatrix} ,
+  \begin{bmatrix}
+     I_r\\ 
+      0 
+ \end{bmatrix} ,
+  \begin{bmatrix}
+     I_r & 0
+ \end{bmatrix} ,
+  \begin{bmatrix}
+     I_r 
+ \end{bmatrix}
+$$  
+ 
+## Characteristic Equation , Eigen Value & Eigen Vector
+For every square matrix A of order n , we can form a matrix $A-\lambda I,$ where $\lambda$ is a scalar and $I$ is the unit matrix of order $n$. The determinant of this matrix equated to 
+zero i.e.,$|A-\lambda I| = 0$ is called the characteristic equation of . On expanding the determinant we can write this equation as
+$$(-1)^n [\lambda^n + k_1\lambda^{n-1} + k_2\lambda^{n-2} + \cdots +k_n]=0$$ 
+The roots of this equation are called **characteristic roots** or **latent roots** or **eigen values** .
+<br>Now consider $(A-\lambda I)X = 0$ 
+$$
+i.e. \quad A=
+ \begin{bmatrix}
+ a_{11}-\lambda & a_{12} & \cdots & a_{1n}\\
+ a_{21} & a_{22}-\lambda & \cdots & a_{2n}\\
+ \cdots & \cdots & a_{ii}-\lambda & \cdots\\
+ a_{n1} & a_{n2} & \cdots & a_{nn}-\lambda
+ \end{bmatrix}_{n \times n} 
+ \begin{bmatrix}
+     x_1\\ 
+     x_2\\
+     \cdots\\
+     x_n 
+ \end{bmatrix}_{n \times 1}
+ = \begin{bmatrix}
+     0\\ 
+     0\\
+     \cdots\\
+     0 
+ \end{bmatrix}_{n \times 1}
+$$
+
+These equations will have a non-trivial solution, only if $\rho(A-\lambda I) < n$ (=no. of unknown) , which is possible when $(A-\lambda I)$is singular, i.e., if $|A-\lambda I|=0$ .
+
+This is the characteristic equation of the matrix A and has roots, which are the eigen values of A . Corresponding to each root, the homogeneous system $(A-\lambda I)X = 0$, has a nonzero solution 
+$$\begin{bmatrix}
+     x_1\\ 
+     x_2\\
+     \cdots\\
+     x_n 
+ \end{bmatrix}_{n \times 1}$$
+which is called the **eigen vector or latent vector**.
+
+**Properties**
+
+* Any mtx. $A$ and it's $A^T$ have the same eigen values.
+
+* The sum of eigen values of a mtx. is equal to the sum of the elements on the principal diagonal of the mtx.
+
+* The product of the eigen values of a mtx. A is equal to the determination of A .
+
+* $\lambda_1,\lambda_2,...,\lambda_m$, where $\lambda_i's$are eigen values of A.
+
+$kA \rightarrow k\lambda_1,k\lambda_2,...,k\lambda_m$
+
+$A^m \rightarrow \lambda_1^m,\lambda_2^m,...,\lambda_1^m$
+
+$A^{-1} = \frac{1}{\lambda_1},\frac{1}{\lambda_2},...,\frac{1}{\lambda_m}$ for non-singular matrix.
+
+## Cayley-Hamilton (C-H) Theorem
+$$|A-\lambda I| = (-1)^n [\lambda^n + k_1\lambda^{n-1} + k_2\lambda^{n-2} + \cdots +k_n]=0$$ 
+
+then , $$(-1)^n [A^n + k_1A^{n-1} + k_2A^{n-2} + \cdots + k_nI]=0$$
+
+# Summary of Matrix Operators in R
+The operations given below assume that the orders of the matrices involved allow the operation to be evaluated. More details of these operations will be given in the note later.
+<br>**R** is case sensitive so *A* and *a* denote distinct objects.
+
+* To create a vector x $\Rightarrow$ $x = c(x_1,x_2,...,x_p)$.
+* To access an individual element in a vector $x$, the $i^{th}$ , **x[i]**.
+* To create a matrix A $\Rightarrow$ $A = matrix(data, nrow=m, ncol=n, byrow=F)$.
+* To access an individual element in a matrix A, the $(i, j)^th$ $\Rightarrow$ **A[i,j]**.
+* To access an individual row in a matrix A, the $i^{th}$
+$\Rightarrow$ **A[i ,]**
+* To access an individual column in a matrix A, the $j^{th} \Rightarrow$ **A[, j]**.
+* To access a subset of rows in a matrix A$\Rightarrow$ **A[i1 : i2 ,]**.
+* To access a subset of columns in a matrix A $\Rightarrow$ **A[, j1 : j2]**.
+* To access a sub-matrix of A $\Rightarrow$ **A[i1 : i2 , j1 : j2]**.
+* Addition A+B $\Rightarrow$ $A+B$.
+* Subtraction A−B $\Rightarrow$ $A-B$.
+* Multiplication AB $\Rightarrow$ **A %*% B**
+* Hadamard multiplication $A \odot B$ $\Rightarrow$ $A*B$ .
+* Kronecker multiplication $A \otimes B$ $\Rightarrow$ **A %x% B**.
+* Transpose $A^{\prime}$ $\Rightarrow$ $t(A)$
+* Matrix cross-product $A^{\prime}B$ $\Rightarrow$ $crossprod(A,B)$.
+* Inversion $A^{-1}$ $\Rightarrow$ $solve(A)$ .
+* Moore–Penrose generalized inverse $A^{+}$ $\Rightarrow$ $ginv(A)$ (in *MASS library*) [or $MPinv(A)$ (in *gnm library*)].
+
+**Note:** ginv(. will work with almost any matrix but it is safer to use solve(.) if you expect the matrix to be non-singular since solve(.) will give an error message if the matrix is singular or non-square but ginv(.) will not.
+
+* Determinant **det(A)** or $|A|$ $\Rightarrow$ $det(A)$.
+* Eigenanalysis $\Rightarrow$ $eigen(A)$.
+* To extract a diagonal of a matrix A as a vector $\Rightarrow$ $diag(A)$.
+* Trace of a matrix A $\Rightarrow$ **sum(diag(A))**.
+* To create a diagonal matrix $\Rightarrow$ $diag(c(x_{11} , x_{22} ,...,x_{pp}))$.
+* To create a diagonal matrix from another matrix $\Rightarrow$ $diag(diag(A))$.
+* To change a dataframe into a matrix $\Rightarrow$ **data.matrix(dataframe)**.
+* To change some other object into a matrix $\Rightarrow$ **as.matrix(object)**.
+* To join vectors into a matrix as columns $\Rightarrow$ $cbind(vec_1,vec_2,...,vec_n)$.
+* To join vectors into a matrix as rows $\Rightarrow$  $rbind(vec_1,vec_2,...,vec_n)$.
+* To join matrices A and B together side by side $\Rightarrow$ **cbind(A,B)**.
+* To stack A and B together on top of each other $\Rightarrow$ **rbind(A,B)** .
+* To find the length of a vector x $\Rightarrow$ **length(x)**.
+* To find the dimensions of a matrix A $\Rightarrow$ **dim(A)**
+
+## Creating Matrix
+$$matix(c(x_1,x_2,...,x_n)) , nrow , ncol , byrow$$
+
+```{r}
+# Create a Matrix A Column-wise (by default)
+A <- matrix(c(1,2,3,4,5,6) , nrow = 2 , ncol = 3) ; A
+
+# Create a Matrix B row-wise
+B <- matrix(c(1,2,3,4,5,6) , nrow = 2 , ncol = 3 , byrow = T) ; B
+```
+
+## Extraction of Matrix
+```{r}
+# Extract the full Row
+A[2 ,]
+
+# Extract the full Column
+A[, 2]
+
+# Extract the element located at row 2 , col 2
+A[2 , 2]
+```
+
+## Mathematical Operation on Matrix
+```{r}
+# Addition of Matrices
+A + B
+
+# Subtraction of Matrices
+A - B
+
+# Multiply the matrix by 2
+2 * A
+
+A * 2
+
+# Multiplication of Matrices
+#  A*B gives element-by-element multiplication (the Hadamard or Schur product) which is rarely required
+A*B  
+```
+
+## Transpose of Matix
+```{r}
+A
+
+# Transpose of Matix
+t(A)
+
+# Multiplication of t(A) and B by %*%
+t(A)%*%B
+```
+
+## Kronecker Products of Matrices
+```{r}
+# Kronecker Products of A and B
+A%x%B
+
+# Kronecker Products of A and B
+B%x%A
+```
+
+## Length & Dimension of Matrix
+```{r}
+# No. of Elements in Matrix
+length(A)
+
+# Dimension of Matrix
+dim(A)
+
+dim(t(A))
+
+# Class of Matrix
+class(A)
+```
+
+## Joining of Matrices
+$$rbind() \quad cbind()$$
+```{r}
+# Joining Row-wise
+rbind(A , B)
+
+# Joining Column-wise
+cbind(A , B)
+
+# Transpose of Joined Matrix
+t(rbind(t(A) , t(B)))
+
+t(cbind(t(A) , t(B)))
+```
+## Naming of Matrix
+```{r}
+dim(A)
+
+# Columns Names
+colnames(A) <- c("Joya", "Amoha" , "UP")
+
+# Rows Names
+rownames(A) <- c("A" , "B")
+A
+
+# Another Method for Naming Matrix
+dimnames(A) <- list(c("A" , "B") , c("C" , "D" , "E"))
+A
+
+# Another Method 
+rn <- c("a" , "b")
+cn <-c("c" , "d" , "e")
+rownames(A) <- rn
+colnames(A) <- cn
+A
+```
+## Diagonal & Trace of Matrix
+```{r}
+E <- matrix(c(1,2,3,4,5,6,7,8,9) , 3, 3 , byrow = T) ; E
+
+# Diagonal of Matrix
+diag(E)
+
+# Diagonal of Diagonal Matrix , it show only diagonal matrix
+diag(diag(E))
+
+# Same as above
+diag(c(1 , 5 , 9))
+
+# Trace of Matrix
+sum(diag(E))
+
+# Trace of Product
+F <- matrix(1:9 , 3,3) 
+
+sum(diag(E %*% F))
+
+sum(diag(F %*% E))
+```
+
+## Transepose of Product
+```{r}
+t(E %*% F) # Correct way
+
+t(E) %*% t(F)
+```
+
+## Determinant of Matrix
+```{r}
+G <- matrix(c(1,-2,2,2,0,1,1,1,-2) , 3,3, byrow = T) ; G
+
+# Determinent of Matrix
+det(G)
+```
+
+## Inverse of Matrix
+Make sure that the Matrix should be **Square** and **Non-Singular**
+```{r , warning=FALSE}
+A <- matrix(c(1,-2,2,2,0,1,1,1,-2) , nrow = 3 , ncol = 3) ; A
+
+# Inverse of Matrix 
+solve(A) 
+
+# Create a Matrix B row-wise
+B <- matrix(c(4,6,5,-7,6,4,0,9,3) , nrow = 3 , ncol = 3 , byrow = T) ; B
+
+# Inverse of Multiplication of Matix
+solve(A %*% B)
+
+# Inverse by MASS Libray
+library(MASS)
+ginv(A %*% B)
+```
+
+## Eigen Values & Eigen Vector of Matrix
+```{r}
+e <- eigen(A) ; e
+
+# Eigen Values of Matrix
+round(e$values , 2)
+
+# Eigen Vector of Matrix
+round(e$vectors , 2)
+
+# Eigen of two Matries
+e2 <- eigen(A %*% B)
+round(e2$values, 2)
+
+round(e2$vectors , 2)
+```
+
+## Singular Value Decomposition
+```{r}
+X <- matrix(c(1,2,3,4,5,6,7,8,9),3,3,byrow=T); X
+
+# Singular Value Decomposition
+s <- svd(X)
+
+# d
+round(s$d , 2)
+
+# u
+round(s$u , 2)
+
+# v
+round(s$v , 2)
+```
+
+## Cross-Product of Matrix
+It's same as $X^TX$
+```{r}
+A <- matrix(c(1,2,3,4,5,6), nrow=2, ncol=3, byrow=T)
+B <- matrix(c(1,2,3,4,5,6), nrow=2, ncol=3, byrow=T)
+
+# Cross-Product of single matrix
+crossprod(A)
+
+# Cross-Product of two matrices
+crossprod(A , B)
+```
+
+## Statistics on Matrix
+```{r}
+X <- matrix(c(2,3,5,6,4,2,4,5,4) , 3,3) 
+
+# Mean of complete matrix
+mean(X)
+
+# Standard Deviation of Matrix
+sd(X)
+
+# Column wise Sum of Matrix
+colSums(X)
+
+# Column-wise Mean of Matrix
+colMeans(X)
+
+# Column-wise Summary of Matrix
+summary(X)
+
+# Row-wise Sum of Matrix
+rowSums(X)
+
+# Row-wise Mean
+rowMeans(X)
+```
+
+Other Statistical Functions can be find by using $apply()$
+
+## Rank of Matrix
+```{r}
+library(Matrix)
+a <- matrix(1:9 , 3,3) ; a
+
+# Rank of a Matrix
+rankMatrix(a)
+```
+
+## Solving the Linear Equations 
+**Task :** Solve the following Equations
+$$x + 2y + 3z = 20$$  
+$$2x + 2y + 3z = 100$$  
+$$3x + 2y + 8z = 200$$
+
+```{r}
+# create matrix A and B using given equations
+A <- rbind(c(1, 2, 3), 
+           c(2, 2, 3), 
+           c(3, 2, 8))
+A
+
+B <- c(20, 100, 200) ; B
+  
+# Solve them using solve function in R
+solve(A, B)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
